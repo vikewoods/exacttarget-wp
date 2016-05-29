@@ -1,0 +1,3 @@
+[submodule "include/php_soap_api"]
+	path = include/php_soap_api
+	url = https://github.com/hglattergotz/ExactTarget-PHP-SOAP-API.git
