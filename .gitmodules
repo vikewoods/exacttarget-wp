@@ -1,0 +1,3 @@
+[submodule "include/lib"]
+	path = include/lib
+	url = https://vikewoods@github.com/salesforce-marketingcloud/FuelSDK-PHP.git
