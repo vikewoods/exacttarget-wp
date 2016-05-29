@@ -37,8 +37,11 @@ class Exact_Target_Widget extends WP_Widget
     {
         echo $args['before_widget'];
         echo '<form id="et_form" action="' . esc_url($_SERVER['REQUEST_URI']) . '" method="post">';
+        echo '<div class="et_input_holder">';
         echo '<input type="text" name="exwemail" id="et_email" placeholder="' . $instance['etm_placeholder'] . '"/>';
         echo '<input type="submit" name="exwsubmit" id="et_button" value="' . $instance['etm_button'] . '"/>';
+        echo '<p id="et_result" class="result"></p>';
+        echo '</div>';
         echo '</form>';
         echo $args['after_widget'];
     }
@@ -159,38 +162,46 @@ add_action('wp_enqueue_scripts', 'exact_target_load_resource');
  *
  * Handle ajax for both sides
  */
-function exact_target_ajax_submit(){
+function exact_target_ajax_submit()
+{
 
     $response = new WP_Ajax_Response;
 
-    if(isset($_POST)){
+    if (isset($_POST)) {
 
         $et_email = $_POST['exwemail'];
 
-        if(!empty($et_email)){
-            if(!filter_var($et_email, FILTER_VALIDATE_EMAIL)){
+        if (!empty($et_email)) {
+            if (!filter_var($et_email, FILTER_VALIDATE_EMAIL)) {
+
+                //TODO: Work here with ExactTarget api to create new subscriber
+                //TODO: Ask Tau for login details for marketing cloud (there are only 1 way to login with username & password)
+
+
+
+
                 $response->add(
                     array(
-                        'data'	=> 'error',
+                        'data' => 'error',
                         'supplemental' => array(
                             'message' => 'You should enter you real email.',
                         ),
                     )
                 );
-            }else{
+            } else {
                 $response->add(
                     array(
-                        'data'	=> 'success',
+                        'data' => 'success',
                         'supplemental' => array(
                             'message' => 'You are successfully subscribed.',
                         ),
                     )
                 );
             }
-        }else{
+        } else {
             $response->add(
                 array(
-                    'data'	=> 'error',
+                    'data' => 'error',
                     'supplemental' => array(
                         'message' => 'Something went wrong, sorry.',
                     ),
@@ -205,8 +216,8 @@ function exact_target_ajax_submit(){
 
 }
 
-add_action( 'wp_ajax_nopriv_exact-target-ajax-submit', 'exact_target_ajax_submit' );
-add_action( 'wp_ajax_exact-target-ajax-submit', 'exact_target_ajax_submit' );
+add_action('wp_ajax_nopriv_exact-target-ajax-submit', 'exact_target_ajax_submit');
+add_action('wp_ajax_exact-target-ajax-submit', 'exact_target_ajax_submit');
 
 
 
