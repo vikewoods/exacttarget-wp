@@ -11,9 +11,7 @@
 /*
  * Including SOAP API
  */
-require('include/php_soap_api/exacttarget_soap_client.php');
-
-$soap_wsdl = "https://webservice.exacttarget.com/etframework.wsdl";
+require('include/lib/ET_Client.php');
 
 class Exact_Target_Widget extends WP_Widget
 {
@@ -35,15 +33,43 @@ class Exact_Target_Widget extends WP_Widget
      */
     public function widget($args, $instance)
     {
-        echo $args['before_widget'];
+
+
+        var_dump($instance);
+
+        echo '<div class="container">';
+        echo '<div class="row">';
+        echo '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">';
+        echo '<div class="mj_addsection">';
+        echo '<h2>'. $instance['etm_title'] .'</h2>';
+        echo '<div class="mj_weight mj_bottompadder20">';
+
         echo '<form id="et_form" action="' . esc_url($_SERVER['REQUEST_URI']) . '" method="post">';
         echo '<div class="et_input_holder">';
-        echo '<input type="text" name="exwemail" id="et_email" placeholder="' . $instance['etm_placeholder'] . '"/>';
+        echo '<input type="text" name="exwemail" id="et_email" placeholder="' . $instance['etm_email_placeholder'] . '"/>';
         echo '<input type="submit" name="exwsubmit" id="et_button" value="' . $instance['etm_button'] . '"/>';
         echo '<p id="et_result" class="result"></p>';
         echo '</div>';
         echo '</form>';
-        echo $args['after_widget'];
+
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+        
+
+        /*
+         * Debug
+         *
+         */
+//        echo '<pre>';
+//        $myclient = new ET_Client();
+//        $getList = new ET_List();
+//        $getList->authStub = $myclient;
+//        $getResponse = $getList->get();
+//        var_dump($getResponse);
+//        echo '</pre>';
     }
 
     /*
